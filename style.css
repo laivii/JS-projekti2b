@@ -1,0 +1,100 @@
+* {box-sizing: border-box}
+
+body {
+    width: 60%;
+    font-size: 2rem;
+    font-family: "Courier New", monospace;
+}
+
+body, .infoContainer {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+header, .infoContainer, .content, #panel {
+    padding: 1rem;
+}
+
+body, .container, #panel, #moreInfo {
+    text-align: center;
+}
+
+.content, button, body {
+    background-color: pink;
+}
+
+header, #calculate {
+    margin: 4%;
+}
+
+h3, #moreInfo {
+    padding: 1%;
+}
+
+textarea, button {
+    border: none;
+    border-radius: 0.5rem;
+}
+
+textarea {
+    background-color: rgb(248, 236, 238);
+    resize: none;
+}
+
+.infoContainer {
+    width: 90%;
+}
+
+img {
+    width: 60%;
+    height: auto;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    position: relative;
+}
+
+.centered {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.hide, #panel {
+    display: none;
+}
+
+#results {
+    font-style: italic;
+}
+
+#names {
+    text-transform: uppercase;
+}
+  
+#panel, .infoContainer {
+    background-color: white;
+    border-radius: 1rem;
+}
+
+#panel, #moreInfo, #percentage {
+    font-size: 1rem;
+}
+
+@media screen and (max-width: 1000px){
+    [class*="col-"] {
+        width: 100%;
+        margin-bottom: 5%;
+    }
+
+    body {
+        width: 90%;
+    }
+}
