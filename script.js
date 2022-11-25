@@ -9,8 +9,6 @@ $(document).ready(function(){
 
             //Setting for calling the API we are using
             const settings = {
-                "async": true,
-                "crossDomain": true,
                 "url": "https://love-calculator.p.rapidapi.com/getPercentage?sname="+name1+"&fname="+name2,
                 "method": "GET",
                 "headers": {
@@ -21,15 +19,16 @@ $(document).ready(function(){
     
             $.ajax(settings).done(function (response) {
                 $("#calculate").text("AGAIN");
-                console.log(response);
+
                 var compatible = response.percentage; //Tells the percentage of the two names in number
                 percentage = $("#percentage").text(compatible + "%"); //Setting the mage percentage correctly
 
-                person1 = response.sname;
-                person2 = response.fname;
-
+                //Assigning variables
+                var person1 = response.sname;
+                var person2 = response.fname;
                 var resultPhrase = response.result;
 
+                //Checking the percentage so we can pick the battery image accordingly
                 if(compatible == 0){
                     $("#battery").attr("src", "images/empty-battery.png");
                 }
@@ -46,6 +45,7 @@ $(document).ready(function(){
                     $("#battery").attr("src", "images/full-battery.png");
                 }
 
+                //Printing the results we get from the API
                 $("#names").html("<b>"+person1+" + "+person2+"</b>");
                 $("#results").text('"'+resultPhrase+'"');
             });
@@ -54,7 +54,7 @@ $(document).ready(function(){
             $("#person2").val("");
         }
 
-        //Changing to it's original look
+        //Changing back to original look
         $("#atStart, #afterCalculation").toggleClass("hide");
         $("#calculate").text("CALCULATE");
 
