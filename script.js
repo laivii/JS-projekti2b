@@ -21,6 +21,8 @@ $(document).ready(function(){
                 }
             };
 
+            var leveys = $("#battery").css("width");
+
             changeClasses("col-sm-3","col-sm-12","25%");
 
             for(let i = 0; i <= 4; i++){
@@ -28,7 +30,7 @@ $(document).ready(function(){
             }
 
             $("#battery").fadeIn(function(){
-                changeClasses("col-sm-12","col-sm-3", "80%");
+                changeClasses("col-sm-12","col-sm-3",  leveys);
                 apiRequest(settings);
             });
 
