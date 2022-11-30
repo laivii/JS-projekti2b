@@ -102,4 +102,8 @@ img {
     body {
         width: 90%;
     }
+
+    img {
+        width: 40%;
+    }
 }
