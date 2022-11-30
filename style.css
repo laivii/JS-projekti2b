@@ -39,6 +39,7 @@ textarea, button {
 textarea {
     background-color: rgb(248, 236, 238);
     resize: none;
+    width: 90%;
 }
 
 .infoContainer {
@@ -46,8 +47,12 @@ textarea {
 }
 
 img {
-    width: 60%;
+    width: 80%;
     height: auto;
+}
+
+.done {
+    width: 100%;
 }
 
 .row {

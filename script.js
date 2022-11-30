@@ -1,13 +1,14 @@
-
 $(document).ready(function(){
     $("#calculate").click(function(){
         $("#calculate").toggleClass("false");
 
         if($("#calculate").hasClass("false")){
+            
+    
             var name1 = $("#person1").val(); //Getting the value of input1
             var name2 = $("#person2").val(); //Getting the value of input2
 
-            //Setting for calling the API we are using
+            //Settings for calling the API we are using
             const settings = {
                 "url": "https://love-calculator.p.rapidapi.com/getPercentage?sname="+name1+"&fname="+name2,
                 "method": "GET",
@@ -19,43 +20,56 @@ $(document).ready(function(){
     
             $.ajax(settings).done(function (response) {
                 $("#calculate").text("AGAIN");
+                var compatible = response.percentage; //Returns percentage of the names
+                var person1 = response.sname; //Returns first name
+                var person2 = response.fname; //Returns second name
+                var resultPhrase = response.result; //Returns a phrase based on names' compatibility
 
-                var compatible = response.percentage; //Tells the percentage of the two names in number
-                percentage = $("#percentage").text(compatible + "%"); //Setting the mage percentage correctly
-
-                //Assigning variables
-                var person1 = response.sname;
-                var person2 = response.fname;
-                var resultPhrase = response.result;
-
-                //Checking the percentage so we can pick the battery image accordingly
-                if(compatible == 0){
-                    $("#battery").attr("src", "images/empty-battery.png");
-                }
-    
-                if(compatible > 0 && compatible < 34){
-                    $("#battery").attr("src", "images/low-battery.png");
-                }
-    
-                if(compatible > 33 && compatible < 67){
-                    $("#battery").attr("src", "images/medium-battery.png");
-                }
-            
-                if(compatible > 66 && compatible <= 100){
-                    $("#battery").attr("src", "images/full-battery.png");
-                }
-
-                //Printing the results we get from the API
+                //Displaying the information
+                getPicture(compatible);
+                percentage = $("#percentage").text(compatible + "%");
                 $("#names").html("<b>"+person1+" + "+person2+"</b>");
                 $("#results").text('"'+resultPhrase+'"');
             });
 
+            //Emptying textareas
             $("#person1").val("");
             $("#person2").val("");
         }
+        changeBack();
+    });
 
-        //Changing back to original look
-        $("#atStart, #afterCalculation").toggleClass("hide");
+    $("#moreInfo").click(function(){
+        $("#panel").slideToggle("slow");
+    });
+
+    function getPicture(compatible){
+        //Changes the picture accordingin to compatibility
+        if(compatible == 0){
+            $("#battery").attr("src", "images/empty-battery.png");
+            return;
+        }
+
+        if(compatible > 0 && compatible < 34){
+            $("#battery").attr("src", "images/low-battery.png");
+            return;
+        }
+
+        if(compatible > 33 && compatible < 67){
+            $("#battery").attr("src", "images/medium-battery.png");
+            return;
+        }
+    
+        if(compatible > 66 && compatible <= 100){
+            $("#battery").attr("src", "images/full-battery.png");
+            return;
+        }
+    }
+
+    function changeBack(){
+        //Changes site to it's original look
+        $("#atStart, #afterCalculation").toggle();
+
         $("#calculate").text("CALCULATE");
 
         $("#battery").attr("src", "images/empty-battery.png");
@@ -63,9 +77,5 @@ $(document).ready(function(){
 
         $("#names").text("");
         $("#results").text("");
-    });
-
-    $("#moreInfo").click(function(){
-        $("#panel").slideToggle("slow");
-    });
+    }
 });
