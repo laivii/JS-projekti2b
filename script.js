@@ -21,7 +21,7 @@ $(document).ready(function(){
                 }
             };
 
-            changeClasses("col-sm-3","col-sm-12","20%");
+            changeClasses("col-sm-3","col-sm-12","25%");
 
             for(let i = 0; i <= 4; i++){
                 $("#battery").fadeToggle();
