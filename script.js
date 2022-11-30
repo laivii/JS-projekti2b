@@ -1,10 +1,13 @@
 $(document).ready(function(){
+    $("#moreInfo").click(function(){
+        $("#panel").slideToggle("slow");
+    });
+
     $("#calculate").click(function(){
         $("#calculate").toggleClass("false");
 
+        //If button hass class "false" continue
         if($("#calculate").hasClass("false")){
-            
-    
             var name1 = $("#person1").val(); //Getting the value of input1
             var name2 = $("#person2").val(); //Getting the value of input2
 
@@ -17,19 +20,16 @@ $(document).ready(function(){
                     "X-RapidAPI-Host": "love-calculator.p.rapidapi.com"
                 }
             };
-    
-            $.ajax(settings).done(function (response) {
-                $("#calculate").text("AGAIN");
-                var compatible = response.percentage; //Returns percentage of the names
-                var person1 = response.sname; //Returns first name
-                var person2 = response.fname; //Returns second name
-                var resultPhrase = response.result; //Returns a phrase based on names' compatibility
 
-                //Displaying the information
-                getPicture(compatible);
-                percentage = $("#percentage").text(compatible + "%");
-                $("#names").html("<b>"+person1+" + "+person2+"</b>");
-                $("#results").text('"'+resultPhrase+'"');
+            changeClasses("col-sm-3","col-sm-12","20%");
+
+            for(let i = 0; i <= 4; i++){
+                $("#battery").fadeToggle();
+            }
+
+            $("#battery").fadeIn(function(){
+                changeClasses("col-sm-12","col-sm-3", "80%");
+                apiRequest(settings);
             });
 
             //Emptying textareas
@@ -38,10 +38,28 @@ $(document).ready(function(){
         }
         changeBack();
     });
+    
+    function changeClasses(class1, class2, battery){
+        $("#photo").removeClass(class1);
+        $("#photo").addClass(class2);
+        $("#battery").css("width", battery);
+    }
 
-    $("#moreInfo").click(function(){
-        $("#panel").slideToggle("slow");
-    });
+    function apiRequest(settings){
+        $.ajax(settings).done(function (response) {
+            $("#calculate").text("AGAIN");
+            var compatible = response.percentage; //Returns percentage of the names
+            var person1 = response.sname; //Returns first name
+            var person2 = response.fname; //Returns second name
+            var resultPhrase = response.result; //Returns a phrase based on names' compatibility
+
+            //Displaying the information
+            getPicture(compatible);
+            percentage = $("#percentage").text(compatible + "%");
+            $("#names").html("<b>"+person1+" + "+person2+"</b>");
+            $("#results").text('"'+resultPhrase+'"');
+        });
+    }
 
     function getPicture(compatible){
         //Changes the picture accordingin to compatibility
