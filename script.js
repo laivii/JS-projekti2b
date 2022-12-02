@@ -7,6 +7,8 @@ $(document).ready(function(){
     $("#calculate").click(function(){
         $("#calculate").toggleClass("false");
 
+        /* Insert input validation here*/
+
         //If button hass class "false" continue
         if($("#calculate").hasClass("false")){
             var name1 = $("#person1").val(); //Getting the value of input1
@@ -23,7 +25,6 @@ $(document).ready(function(){
             };
 
             var leveys = $("#battery").css("width"); //Gets Battery pictures current width to be used later
-
             changeClasses("col-sm-3","col-sm-12","25%");
 
             //Makes battery picture fadeIn and Fade out for 5 times to simulate loading
@@ -36,10 +37,6 @@ $(document).ready(function(){
                 changeClasses("col-sm-12","col-sm-3",  leveys);
                 apiRequest(settings);
             });
-
-            //Resets textareas
-            $("#person1").val("");
-            $("#person2").val("");
         }
         changeBack();
     });
@@ -99,6 +96,8 @@ $(document).ready(function(){
         $("#calculate").text("CALCULATE");
         $("#battery").attr("src", "images/empty-battery.png");
         $("#percentage").html("<b>...%</b>");
+        $("#person1").val("");
+        $("#person2").val("");
         $("#names").text("");
         $("#results").text("");
     }
