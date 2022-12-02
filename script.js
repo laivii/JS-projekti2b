@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $("#moreInfo").click(function(){
+        //Shows and hides information box
         $("#panel").slideToggle("slow");
     });
 
@@ -21,20 +22,22 @@ $(document).ready(function(){
                 }
             };
 
-            var leveys = $("#battery").css("width");
+            var leveys = $("#battery").css("width"); //Gets Battery pictures current width to be used later
 
             changeClasses("col-sm-3","col-sm-12","25%");
 
+            //Makes battery picture fadeIn and Fade out for 5 times to simulate loading
             for(let i = 0; i <= 4; i++){
                 $("#battery").fadeToggle();
             }
 
+            //Fades in for the last time and has callback function to display the results
             $("#battery").fadeIn(function(){
                 changeClasses("col-sm-12","col-sm-3",  leveys);
                 apiRequest(settings);
             });
 
-            //Emptying textareas
+            //Resets textareas
             $("#person1").val("");
             $("#person2").val("");
         }
@@ -42,14 +45,18 @@ $(document).ready(function(){
     });
     
     function changeClasses(class1, class2, battery){
+        //Changes battery pictures classes for loading "animation"
         $("#photo").removeClass(class1);
         $("#photo").addClass(class2);
         $("#battery").css("width", battery);
     }
 
     function apiRequest(settings){
+        //Does the API request and gets response information
         $.ajax(settings).done(function (response) {
-            $("#calculate").text("AGAIN");
+            $("#calculate").text("AGAIN");//Changes buttons text
+
+            //Assigns response info to variables
             var compatible = response.percentage; //Returns percentage of the names
             var person1 = response.sname; //Returns first name
             var person2 = response.fname; //Returns second name
@@ -64,7 +71,7 @@ $(document).ready(function(){
     }
 
     function getPicture(compatible){
-        //Changes the picture accordingin to compatibility
+        //Changes the picture accordingin to compatibility percentage
         if(compatible == 0){
             $("#battery").attr("src", "images/empty-battery.png");
             return;
@@ -89,12 +96,9 @@ $(document).ready(function(){
     function changeBack(){
         //Changes site to it's original look
         $("#atStart, #afterCalculation").toggle();
-
         $("#calculate").text("CALCULATE");
-
         $("#battery").attr("src", "images/empty-battery.png");
         $("#percentage").html("<b>...%</b>");
-
         $("#names").text("");
         $("#results").text("");
     }
